@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jqm.ssm.dao.DepartmentDao">
+  <resultMap id="BaseResultMap" type="com.jqm.ssm.entity.Department">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="structure" jdbcType="VARCHAR" property="structure" />
+    <result column="sort_no" jdbcType="INTEGER" property="sortNo" />
+    <result column="create_person" jdbcType="VARCHAR" property="createPerson" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_person" jdbcType="VARCHAR" property="updatePerson" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, remark, parent_id, structure, sort_no, create_person, create_date, update_person, 
+    update_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from water_department
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from water_department
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jqm.ssm.entity.Department">
+    insert into water_department (id, name, remark, 
+      parent_id, structure, sort_no, 
+      create_person, create_date, update_person, 
+      update_date)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=INTEGER}, #{structure,jdbcType=VARCHAR}, #{sortNo,jdbcType=INTEGER}, 
+      #{createPerson,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updatePerson,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jqm.ssm.entity.Department">
+    insert into water_department
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="structure != null">
+        structure,
+      </if>
+      <if test="sortNo != null">
+        sort_no,
+      </if>
+      <if test="createPerson != null">
+        create_person,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updatePerson != null">
+        update_person,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="structure != null">
+        #{structure,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNo != null">
+        #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="createPerson != null">
+        #{createPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatePerson != null">
+        #{updatePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    <selectKey resultType="Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jqm.ssm.entity.Department">
+    update water_department
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="structure != null">
+        structure = #{structure,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNo != null">
+        sort_no = #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="createPerson != null">
+        create_person = #{createPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatePerson != null">
+        update_person = #{updatePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jqm.ssm.entity.Department">
+    update water_department
+    set name = #{name,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      structure = #{structure,jdbcType=VARCHAR},
+      sort_no = #{sortNo,jdbcType=INTEGER},
+      create_person = #{createPerson,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_person = #{updatePerson,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="deleteLogicByIds">
+    update water_department set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach> 
+  </update>
+  <sql id="OracleDialectPrefix">
+    <if test="page != null and databaseId == 'oracle'">
+      select * from ( select row_.*, rownum rownum_ from ( 
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix">
+    <if test="page != null and databaseId == 'oracle'">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.begin} and rownum_ <= #{page.end} ]]>
+    </if>
+  </sql>
+  <sql id="MysqlDialect">
+    <if test="page != null and databaseId == 'mysql'">
+      limit #{page.begin} , #{page.length}
+    </if>
+  </sql>
+  <select id="selectCountByMap" parameterType="map" resultType="int">
+    select count(*) from  <if test="dynamicTableName != null and dynamicTableName != ''"> ${dynamicTableName}  </if><if test="dynamicTableName == null or dynamicTableName == ''"> water_department</if> <include refid="Base_Query_Map_Condition" /> 
+  </select>
+  <select id="selectListByMap" parameterType="map" resultMap="BaseResultMap">
+     <include refid="OracleDialectPrefix" /> select <include refid="Base_Column_List" /> from  <if test="dynamicTableName != null and dynamicTableName != ''"> ${dynamicTableName}  </if><if test="dynamicTableName == null or dynamicTableName == ''"> water_department</if> <include refid="Base_Query_Map_Condition" />  order by  id desc <include refid="OracleDialectSuffix" /><include refid="MysqlDialect" /> 
+  </select>
+  <sql id="Base_Query_Map_Condition">
+    <trim prefix="where" prefixOverrides="and | or">
+      <if test="id != null and id != ''">
+         AND id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="name != null and name != ''">
+         AND name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="remark != null and remark != ''">
+         AND remark = #{remark,jdbcType=VARCHAR}
+      </if>
+      <if test="parentId != null and parentId != ''">
+         AND parent_id = #{parentId,jdbcType=INTEGER}
+      </if>
+      <if test="structure != null and structure != ''">
+         AND structure = #{structure,jdbcType=VARCHAR}
+      </if>
+      <if test="sortNo != null and sortNo != ''">
+         AND sort_no = #{sortNo,jdbcType=INTEGER}
+      </if>
+      <if test="createPerson != null and createPerson != ''">
+         AND create_person = #{createPerson,jdbcType=VARCHAR}
+      </if>
+      <if test="createDate != null and createDate != ''">
+         AND create_date = #{createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updatePerson != null and updatePerson != ''">
+         AND update_person = #{updatePerson,jdbcType=VARCHAR}
+      </if>
+      <if test="updateDate != null and updateDate != ''">
+         AND update_date = #{updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="myGreater_id != null and myGreater_id != ''">
+         AND id &gt; #{myGreater_id,jdbcType=INTEGER}
+      </if>
+      <if test="myGreater_name != null and myGreater_name != ''">
+         AND name &gt; #{myGreater_name,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_remark != null and myGreater_remark != ''">
+         AND remark &gt; #{myGreater_remark,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_parentId != null and myGreater_parentId != ''">
+         AND parent_id &gt; #{myGreater_parentId,jdbcType=INTEGER}
+      </if>
+      <if test="myGreater_structure != null and myGreater_structure != ''">
+         AND structure &gt; #{myGreater_structure,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_sortNo != null and myGreater_sortNo != ''">
+         AND sort_no &gt; #{myGreater_sortNo,jdbcType=INTEGER}
+      </if>
+      <if test="myGreater_createPerson != null and myGreater_createPerson != ''">
+         AND create_person &gt; #{myGreater_createPerson,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_createDate != null and myGreater_createDate != ''">
+         AND create_date &gt; #{myGreater_createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="myGreater_updatePerson != null and myGreater_updatePerson != ''">
+         AND update_person &gt; #{myGreater_updatePerson,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_updateDate != null and myGreater_updateDate != ''">
+         AND update_date &gt; #{myGreater_updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="myLesser_id != null and myLesser_id != ''">
+         AND id &lt; #{myLesser_id,jdbcType=INTEGER}
+      </if>
+      <if test="myLesser_name != null and myLesser_name != ''">
+         AND name &lt; #{myLesser_name,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_remark != null and myLesser_remark != ''">
+         AND remark &lt; #{myLesser_remark,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_parentId != null and myLesser_parentId != ''">
+         AND parent_id &lt; #{myLesser_parentId,jdbcType=INTEGER}
+      </if>
+      <if test="myLesser_structure != null and myLesser_structure != ''">
+         AND structure &lt; #{myLesser_structure,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_sortNo != null and myLesser_sortNo != ''">
+         AND sort_no &lt; #{myLesser_sortNo,jdbcType=INTEGER}
+      </if>
+      <if test="myLesser_createPerson != null and myLesser_createPerson != ''">
+         AND create_person &lt; #{myLesser_createPerson,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_createDate != null and myLesser_createDate != ''">
+         AND create_date &lt; #{myLesser_createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="myLesser_updatePerson != null and myLesser_updatePerson != ''">
+         AND update_person &lt; #{myLesser_updatePerson,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_updateDate != null and myLesser_updateDate != ''">
+         AND update_date &lt; #{myLesser_updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="myLike_id != null and myLike_id != ''">
+         AND id like CONCAT('%', #{myLike_id,jdbcType=INTEGER},'%' )
+      </if>
+      <if test="myLike_name != null and myLike_name != ''">
+         AND name like CONCAT('%', #{myLike_name,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_remark != null and myLike_remark != ''">
+         AND remark like CONCAT('%', #{myLike_remark,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_parentId != null and myLike_parentId != ''">
+         AND parent_id like CONCAT('%', #{myLike_parentId,jdbcType=INTEGER},'%' )
+      </if>
+      <if test="myLike_structure != null and myLike_structure != ''">
+         AND structure like CONCAT('%', #{myLike_structure,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_sortNo != null and myLike_sortNo != ''">
+         AND sort_no like CONCAT('%', #{myLike_sortNo,jdbcType=INTEGER},'%' )
+      </if>
+      <if test="myLike_createPerson != null and myLike_createPerson != ''">
+         AND create_person like CONCAT('%', #{myLike_createPerson,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_createDate != null and myLike_createDate != ''">
+         AND create_date like CONCAT('%', #{myLike_createDate,jdbcType=TIMESTAMP},'%' )
+      </if>
+      <if test="myLike_updatePerson != null and myLike_updatePerson != ''">
+         AND update_person like CONCAT('%', #{myLike_updatePerson,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_updateDate != null and myLike_updateDate != ''">
+         AND update_date like CONCAT('%', #{myLike_updateDate,jdbcType=TIMESTAMP},'%' )
+      </if>
+      <if test="myLikeStart_id != null and myLikeStart_id != ''">
+         AND id like CONCAT('%', #{myLikeStart_id,jdbcType=INTEGER})
+      </if>
+      <if test="myLikeStart_name != null and myLikeStart_name != ''">
+         AND name like CONCAT('%', #{myLikeStart_name,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_remark != null and myLikeStart_remark != ''">
+         AND remark like CONCAT('%', #{myLikeStart_remark,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_parentId != null and myLikeStart_parentId != ''">
+         AND parent_id like CONCAT('%', #{myLikeStart_parentId,jdbcType=INTEGER})
+      </if>
+      <if test="myLikeStart_structure != null and myLikeStart_structure != ''">
+         AND structure like CONCAT('%', #{myLikeStart_structure,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_sortNo != null and myLikeStart_sortNo != ''">
+         AND sort_no like CONCAT('%', #{myLikeStart_sortNo,jdbcType=INTEGER})
+      </if>
+      <if test="myLikeStart_createPerson != null and myLikeStart_createPerson != ''">
+         AND create_person like CONCAT('%', #{myLikeStart_createPerson,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_createDate != null and myLikeStart_createDate != ''">
+         AND create_date like CONCAT('%', #{myLikeStart_createDate,jdbcType=TIMESTAMP})
+      </if>
+      <if test="myLikeStart_updatePerson != null and myLikeStart_updatePerson != ''">
+         AND update_person like CONCAT('%', #{myLikeStart_updatePerson,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_updateDate != null and myLikeStart_updateDate != ''">
+         AND update_date like CONCAT('%', #{myLikeStart_updateDate,jdbcType=TIMESTAMP})
+      </if>
+      <if test="myLikeEnd_id != null and myLikeEnd_id != ''">
+         AND id like CONCAT( #{myLikeEnd_id,jdbcType=INTEGER},'%' )
+      </if>
+      <if test="myLikeEnd_name != null and myLikeEnd_name != ''">
+         AND name like CONCAT( #{myLikeEnd_name,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_remark != null and myLikeEnd_remark != ''">
+         AND remark like CONCAT( #{myLikeEnd_remark,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_parentId != null and myLikeEnd_parentId != ''">
+         AND parent_id like CONCAT( #{myLikeEnd_parentId,jdbcType=INTEGER},'%' )
+      </if>
+      <if test="myLikeEnd_structure != null and myLikeEnd_structure != ''">
+         AND structure like CONCAT( #{myLikeEnd_structure,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_sortNo != null and myLikeEnd_sortNo != ''">
+         AND sort_no like CONCAT( #{myLikeEnd_sortNo,jdbcType=INTEGER},'%' )
+      </if>
+      <if test="myLikeEnd_createPerson != null and myLikeEnd_createPerson != ''">
+         AND create_person like CONCAT( #{myLikeEnd_createPerson,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_createDate != null and myLikeEnd_createDate != ''">
+         AND create_date like CONCAT( #{myLikeEnd_createDate,jdbcType=TIMESTAMP},'%' )
+      </if>
+      <if test="myLikeEnd_updatePerson != null and myLikeEnd_updatePerson != ''">
+         AND update_person like CONCAT( #{myLikeEnd_updatePerson,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_updateDate != null and myLikeEnd_updateDate != ''">
+         AND update_date like CONCAT( #{myLikeEnd_updateDate,jdbcType=TIMESTAMP},'%' )
+      </if>
+      <if test="myIn_id != null and myIn_id != ''">
+         AND id in <foreach item="item" index="index" collection="myIn_id" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_name != null and myIn_name != ''">
+         AND name in <foreach item="item" index="index" collection="myIn_name" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_remark != null and myIn_remark != ''">
+         AND remark in <foreach item="item" index="index" collection="myIn_remark" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_parentId != null and myIn_parentId != ''">
+         AND parent_id in <foreach item="item" index="index" collection="myIn_parentId" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_structure != null and myIn_structure != ''">
+         AND structure in <foreach item="item" index="index" collection="myIn_structure" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_sortNo != null and myIn_sortNo != ''">
+         AND sort_no in <foreach item="item" index="index" collection="myIn_sortNo" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_createPerson != null and myIn_createPerson != ''">
+         AND create_person in <foreach item="item" index="index" collection="myIn_createPerson" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_createDate != null and myIn_createDate != ''">
+         AND create_date in <foreach item="item" index="index" collection="myIn_createDate" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_updatePerson != null and myIn_updatePerson != ''">
+         AND update_person in <foreach item="item" index="index" collection="myIn_updatePerson" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_updateDate != null and myIn_updateDate != ''">
+         AND update_date in <foreach item="item" index="index" collection="myIn_updateDate" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+    </trim>
+  </sql>
+  <insert id="batchInsert" parameterType="map">
+    insert into water_department (id, name, remark, parent_id, structure, sort_no, create_person, create_date, update_person, update_date)
+    values
+    <foreach collection="list" item="item" separator=",">
+       (#{item.id,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, #{item.remark,jdbcType=VARCHAR}, #{item.parentId,jdbcType=INTEGER}, #{item.structure,jdbcType=VARCHAR}, #{item.sortNo,jdbcType=INTEGER}, #{item.createPerson,jdbcType=VARCHAR}, #{item.createDate,jdbcType=TIMESTAMP}, #{item.updatePerson,jdbcType=VARCHAR}, #{item.updateDate,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="batchInsertSelective" parameterType="map">
+    insert into water_department (
+    <foreach collection="selective" item="column" separator=",">
+      ${column.value}
+    </foreach>
+    )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (
+      <foreach collection="selective" item="column" separator=",">
+        <if test="'id' == column.value">
+          #{item.id,jdbcType=INTEGER}
+        </if>
+        <if test="'name' == column.value">
+          #{item.name,jdbcType=VARCHAR}
+        </if>
+        <if test="'remark' == column.value">
+          #{item.remark,jdbcType=VARCHAR}
+        </if>
+        <if test="'parent_id' == column.value">
+          #{item.parentId,jdbcType=INTEGER}
+        </if>
+        <if test="'structure' == column.value">
+          #{item.structure,jdbcType=VARCHAR}
+        </if>
+        <if test="'sort_no' == column.value">
+          #{item.sortNo,jdbcType=INTEGER}
+        </if>
+        <if test="'create_person' == column.value">
+          #{item.createPerson,jdbcType=VARCHAR}
+        </if>
+        <if test="'create_date' == column.value">
+          #{item.createDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'update_person' == column.value">
+          #{item.updatePerson,jdbcType=VARCHAR}
+        </if>
+        <if test="'update_date' == column.value">
+          #{item.updateDate,jdbcType=TIMESTAMP}
+        </if>
+      </foreach>
+      )
+    </foreach>
+  </insert>
+  
+  <!--  START 以下为自己编写的代码区域 一般是多表之间的联合查询  START  -->
+
+  <select id="isUsedByUser" parameterType="java.lang.Integer" resultType="java.lang.Boolean">
+		select exists(select 1 from water_user u where u.department_id=#{departmentId} limit 1);
+	</select>
+  
+  <!--  END 以下为自己编写的代码区域 一般是多表之间的联合查询  END  -->
+</mapper>

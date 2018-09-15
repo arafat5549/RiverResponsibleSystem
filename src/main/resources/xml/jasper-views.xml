@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- -->
+    <bean id="exporterParametersMap" class="org.springframework.beans.factory.config.MapFactoryBean">
+        <property name="sourceMap">
+            <map>
+                <entry key="net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IMAGES_URI" value="/yantu/servlet/image?image=" />
+                <entry key="net.sf.jasperreports.engine.export.JRHtmlExporterParameter.CHARACTER_ENCODING" value="UTF-8" />
+            </map>
+        </property>
+    </bean>
+
+    <bean id="userJasper" class="org.springframework.web.servlet.view.jasperreports.JasperReportsHtmlView">
+        <property name="url" value="/assets/resource/jaspers/user2.jasper" />
+        <property name="reportDataKey" value="userDataSource" />
+        <property name="exporterParameters" ref="exporterParametersMap"></property>
+    </bean>
+
+    <bean id="iReportView" class="com.jqm.ssm.misc.ApplicationIReportView">
+        <!-- <property name="url" value="/WEB-INF/jasper/report2.jasper"/> -->
+        <property name="reportDataKey" value="jrMainDataSource"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jqm.ssm.dao.DeviceinfoDao">
+  <resultMap id="BaseResultMap" type="com.jqm.ssm.entity.Deviceinfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="sno" jdbcType="VARCHAR" property="sno" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="protocol" jdbcType="VARCHAR" property="protocol" />
+    <result column="brand_id" jdbcType="INTEGER" property="brandId" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="is_picture_finish" jdbcType="BIT" property="isPictureFinish" />
+    <result column="delete_flag" jdbcType="BIT" property="deleteFlag" />
+    <result column="create_person" jdbcType="VARCHAR" property="createPerson" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_person" jdbcType="VARCHAR" property="updatePerson" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sno, name, protocol, brand_id, category_id, supplier, status, is_picture_finish, 
+    delete_flag, create_person, create_date, update_person, update_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from c_deviceinfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from c_deviceinfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jqm.ssm.entity.Deviceinfo">
+    insert into c_deviceinfo (id, sno, name, 
+      protocol, brand_id, category_id, 
+      supplier, status, is_picture_finish, 
+      delete_flag, create_person, create_date, 
+      update_person, update_date)
+    values (#{id,jdbcType=INTEGER}, #{sno,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{protocol,jdbcType=VARCHAR}, #{brandId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, 
+      #{supplier,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{isPictureFinish,jdbcType=BIT}, 
+      #{deleteFlag,jdbcType=BIT}, #{createPerson,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updatePerson,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jqm.ssm.entity.Deviceinfo">
+    insert into c_deviceinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sno != null">
+        sno,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="protocol != null">
+        protocol,
+      </if>
+      <if test="brandId != null">
+        brand_id,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="isPictureFinish != null">
+        is_picture_finish,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+      <if test="createPerson != null">
+        create_person,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updatePerson != null">
+        update_person,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sno != null">
+        #{sno,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="protocol != null">
+        #{protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null">
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isPictureFinish != null">
+        #{isPictureFinish,jdbcType=BIT},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=BIT},
+      </if>
+      <if test="createPerson != null">
+        #{createPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatePerson != null">
+        #{updatePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jqm.ssm.entity.Deviceinfo">
+    update c_deviceinfo
+    <set>
+      <if test="sno != null">
+        sno = #{sno,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="protocol != null">
+        protocol = #{protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null">
+        brand_id = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isPictureFinish != null">
+        is_picture_finish = #{isPictureFinish,jdbcType=BIT},
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag = #{deleteFlag,jdbcType=BIT},
+      </if>
+      <if test="createPerson != null">
+        create_person = #{createPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatePerson != null">
+        update_person = #{updatePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jqm.ssm.entity.Deviceinfo">
+    update c_deviceinfo
+    set sno = #{sno,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      protocol = #{protocol,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=INTEGER},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      supplier = #{supplier,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      is_picture_finish = #{isPictureFinish,jdbcType=BIT},
+      delete_flag = #{deleteFlag,jdbcType=BIT},
+      create_person = #{createPerson,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_person = #{updatePerson,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="deleteLogicByIds">
+    update c_deviceinfo set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach> 
+  </update>
+  <sql id="OracleDialectPrefix">
+    <if test="page != null and databaseId == 'oracle'">
+      select * from ( select row_.*, rownum rownum_ from ( 
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix">
+    <if test="page != null and databaseId == 'oracle'">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.begin} and rownum_ <= #{page.end} ]]>
+    </if>
+  </sql>
+  <sql id="MysqlDialect">
+    <if test="page != null and databaseId == 'mysql'">
+      limit #{page.begin} , #{page.length}
+    </if>
+  </sql>
+  <select id="selectCountByMap" parameterType="map" resultType="int">
+    select count(*) from  <if test="dynamicTableName != null and dynamicTableName != ''"> ${dynamicTableName}  </if><if test="dynamicTableName == null or dynamicTableName == ''"> c_deviceinfo</if> <include refid="Base_Query_Map_Condition" /> 
+  </select>
+  <select id="selectListByMap" parameterType="map" resultMap="BaseResultMap">
+     <include refid="OracleDialectPrefix" /> select <include refid="Base_Column_List" /> from  <if test="dynamicTableName != null and dynamicTableName != ''"> ${dynamicTableName}  </if><if test="dynamicTableName == null or dynamicTableName == ''"> c_deviceinfo</if> <include refid="Base_Query_Map_Condition" />  order by  id desc <include refid="OracleDialectSuffix" /><include refid="MysqlDialect" /> 
+  </select>
+  <sql id="Base_Query_Map_Condition">
+    <trim prefix="where" prefixOverrides="and | or">
+      <if test="id != null and id != ''">
+         AND id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="sno != null and sno != ''">
+         AND sno = #{sno,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null and name != ''">
+         AND name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="protocol != null and protocol != ''">
+         AND protocol = #{protocol,jdbcType=VARCHAR}
+      </if>
+      <if test="brandId != null and brandId != ''">
+         AND brand_id = #{brandId,jdbcType=INTEGER}
+      </if>
+      <if test="categoryId != null and categoryId != ''">
+         AND category_id = #{categoryId,jdbcType=INTEGER}
+      </if>
+      <if test="supplier != null and supplier != ''">
+         AND supplier = #{supplier,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null and status != ''">
+         AND status = #{status,jdbcType=TINYINT}
+      </if>
+      <if test="isPictureFinish != null and isPictureFinish != ''">
+         AND is_picture_finish = #{isPictureFinish,jdbcType=BIT}
+      </if>
+      <if test="deleteFlag != null and deleteFlag != ''">
+         AND delete_flag = #{deleteFlag,jdbcType=BIT}
+      </if>
+      <if test="createPerson != null and createPerson != ''">
+         AND create_person = #{createPerson,jdbcType=VARCHAR}
+      </if>
+      <if test="createDate != null and createDate != ''">
+         AND create_date = #{createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updatePerson != null and updatePerson != ''">
+         AND update_person = #{updatePerson,jdbcType=VARCHAR}
+      </if>
+      <if test="updateDate != null and updateDate != ''">
+         AND update_date = #{updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="myGreater_id != null and myGreater_id != ''">
+         AND id &gt; #{myGreater_id,jdbcType=INTEGER}
+      </if>
+      <if test="myGreater_sno != null and myGreater_sno != ''">
+         AND sno &gt; #{myGreater_sno,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_name != null and myGreater_name != ''">
+         AND name &gt; #{myGreater_name,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_protocol != null and myGreater_protocol != ''">
+         AND protocol &gt; #{myGreater_protocol,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_brandId != null and myGreater_brandId != ''">
+         AND brand_id &gt; #{myGreater_brandId,jdbcType=INTEGER}
+      </if>
+      <if test="myGreater_categoryId != null and myGreater_categoryId != ''">
+         AND category_id &gt; #{myGreater_categoryId,jdbcType=INTEGER}
+      </if>
+      <if test="myGreater_supplier != null and myGreater_supplier != ''">
+         AND supplier &gt; #{myGreater_supplier,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_status != null and myGreater_status != ''">
+         AND status &gt; #{myGreater_status,jdbcType=TINYINT}
+      </if>
+      <if test="myGreater_isPictureFinish != null and myGreater_isPictureFinish != ''">
+         AND is_picture_finish &gt; #{myGreater_isPictureFinish,jdbcType=BIT}
+      </if>
+      <if test="myGreater_deleteFlag != null and myGreater_deleteFlag != ''">
+         AND delete_flag &gt; #{myGreater_deleteFlag,jdbcType=BIT}
+      </if>
+      <if test="myGreater_createPerson != null and myGreater_createPerson != ''">
+         AND create_person &gt; #{myGreater_createPerson,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_createDate != null and myGreater_createDate != ''">
+         AND create_date &gt; #{myGreater_createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="myGreater_updatePerson != null and myGreater_updatePerson != ''">
+         AND update_person &gt; #{myGreater_updatePerson,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_updateDate != null and myGreater_updateDate != ''">
+         AND update_date &gt; #{myGreater_updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="myLesser_id != null and myLesser_id != ''">
+         AND id &lt; #{myLesser_id,jdbcType=INTEGER}
+      </if>
+      <if test="myLesser_sno != null and myLesser_sno != ''">
+         AND sno &lt; #{myLesser_sno,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_name != null and myLesser_name != ''">
+         AND name &lt; #{myLesser_name,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_protocol != null and myLesser_protocol != ''">
+         AND protocol &lt; #{myLesser_protocol,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_brandId != null and myLesser_brandId != ''">
+         AND brand_id &lt; #{myLesser_brandId,jdbcType=INTEGER}
+      </if>
+      <if test="myLesser_categoryId != null and myLesser_categoryId != ''">
+         AND category_id &lt; #{myLesser_categoryId,jdbcType=INTEGER}
+      </if>
+      <if test="myLesser_supplier != null and myLesser_supplier != ''">
+         AND supplier &lt; #{myLesser_supplier,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_status != null and myLesser_status != ''">
+         AND status &lt; #{myLesser_status,jdbcType=TINYINT}
+      </if>
+      <if test="myLesser_isPictureFinish != null and myLesser_isPictureFinish != ''">
+         AND is_picture_finish &lt; #{myLesser_isPictureFinish,jdbcType=BIT}
+      </if>
+      <if test="myLesser_deleteFlag != null and myLesser_deleteFlag != ''">
+         AND delete_flag &lt; #{myLesser_deleteFlag,jdbcType=BIT}
+      </if>
+      <if test="myLesser_createPerson != null and myLesser_createPerson != ''">
+         AND create_person &lt; #{myLesser_createPerson,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_createDate != null and myLesser_createDate != ''">
+         AND create_date &lt; #{myLesser_createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="myLesser_updatePerson != null and myLesser_updatePerson != ''">
+         AND update_person &lt; #{myLesser_updatePerson,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_updateDate != null and myLesser_updateDate != ''">
+         AND update_date &lt; #{myLesser_updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="myLike_id != null and myLike_id != ''">
+         AND id like CONCAT('%', #{myLike_id,jdbcType=INTEGER},'%' )
+      </if>
+      <if test="myLike_sno != null and myLike_sno != ''">
+         AND sno like CONCAT('%', #{myLike_sno,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_name != null and myLike_name != ''">
+         AND name like CONCAT('%', #{myLike_name,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_protocol != null and myLike_protocol != ''">
+         AND protocol like CONCAT('%', #{myLike_protocol,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_brandId != null and myLike_brandId != ''">
+         AND brand_id like CONCAT('%', #{myLike_brandId,jdbcType=INTEGER},'%' )
+      </if>
+      <if test="myLike_categoryId != null and myLike_categoryId != ''">
+         AND category_id like CONCAT('%', #{myLike_categoryId,jdbcType=INTEGER},'%' )
+      </if>
+      <if test="myLike_supplier != null and myLike_supplier != ''">
+         AND supplier like CONCAT('%', #{myLike_supplier,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_status != null and myLike_status != ''">
+         AND status like CONCAT('%', #{myLike_status,jdbcType=TINYINT},'%' )
+      </if>
+      <if test="myLike_isPictureFinish != null and myLike_isPictureFinish != ''">
+         AND is_picture_finish like CONCAT('%', #{myLike_isPictureFinish,jdbcType=BIT},'%' )
+      </if>
+      <if test="myLike_deleteFlag != null and myLike_deleteFlag != ''">
+         AND delete_flag like CONCAT('%', #{myLike_deleteFlag,jdbcType=BIT},'%' )
+      </if>
+      <if test="myLike_createPerson != null and myLike_createPerson != ''">
+         AND create_person like CONCAT('%', #{myLike_createPerson,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_createDate != null and myLike_createDate != ''">
+         AND create_date like CONCAT('%', #{myLike_createDate,jdbcType=TIMESTAMP},'%' )
+      </if>
+      <if test="myLike_updatePerson != null and myLike_updatePerson != ''">
+         AND update_person like CONCAT('%', #{myLike_updatePerson,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_updateDate != null and myLike_updateDate != ''">
+         AND update_date like CONCAT('%', #{myLike_updateDate,jdbcType=TIMESTAMP},'%' )
+      </if>
+      <if test="myLikeStart_id != null and myLikeStart_id != ''">
+         AND id like CONCAT('%', #{myLikeStart_id,jdbcType=INTEGER})
+      </if>
+      <if test="myLikeStart_sno != null and myLikeStart_sno != ''">
+         AND sno like CONCAT('%', #{myLikeStart_sno,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_name != null and myLikeStart_name != ''">
+         AND name like CONCAT('%', #{myLikeStart_name,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_protocol != null and myLikeStart_protocol != ''">
+         AND protocol like CONCAT('%', #{myLikeStart_protocol,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_brandId != null and myLikeStart_brandId != ''">
+         AND brand_id like CONCAT('%', #{myLikeStart_brandId,jdbcType=INTEGER})
+      </if>
+      <if test="myLikeStart_categoryId != null and myLikeStart_categoryId != ''">
+         AND category_id like CONCAT('%', #{myLikeStart_categoryId,jdbcType=INTEGER})
+      </if>
+      <if test="myLikeStart_supplier != null and myLikeStart_supplier != ''">
+         AND supplier like CONCAT('%', #{myLikeStart_supplier,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_status != null and myLikeStart_status != ''">
+         AND status like CONCAT('%', #{myLikeStart_status,jdbcType=TINYINT})
+      </if>
+      <if test="myLikeStart_isPictureFinish != null and myLikeStart_isPictureFinish != ''">
+         AND is_picture_finish like CONCAT('%', #{myLikeStart_isPictureFinish,jdbcType=BIT})
+      </if>
+      <if test="myLikeStart_deleteFlag != null and myLikeStart_deleteFlag != ''">
+         AND delete_flag like CONCAT('%', #{myLikeStart_deleteFlag,jdbcType=BIT})
+      </if>
+      <if test="myLikeStart_createPerson != null and myLikeStart_createPerson != ''">
+         AND create_person like CONCAT('%', #{myLikeStart_createPerson,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_createDate != null and myLikeStart_createDate != ''">
+         AND create_date like CONCAT('%', #{myLikeStart_createDate,jdbcType=TIMESTAMP})
+      </if>
+      <if test="myLikeStart_updatePerson != null and myLikeStart_updatePerson != ''">
+         AND update_person like CONCAT('%', #{myLikeStart_updatePerson,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_updateDate != null and myLikeStart_updateDate != ''">
+         AND update_date like CONCAT('%', #{myLikeStart_updateDate,jdbcType=TIMESTAMP})
+      </if>
+      <if test="myLikeEnd_id != null and myLikeEnd_id != ''">
+         AND id like CONCAT( #{myLikeEnd_id,jdbcType=INTEGER},'%' )
+      </if>
+      <if test="myLikeEnd_sno != null and myLikeEnd_sno != ''">
+         AND sno like CONCAT( #{myLikeEnd_sno,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_name != null and myLikeEnd_name != ''">
+         AND name like CONCAT( #{myLikeEnd_name,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_protocol != null and myLikeEnd_protocol != ''">
+         AND protocol like CONCAT( #{myLikeEnd_protocol,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_brandId != null and myLikeEnd_brandId != ''">
+         AND brand_id like CONCAT( #{myLikeEnd_brandId,jdbcType=INTEGER},'%' )
+      </if>
+      <if test="myLikeEnd_categoryId != null and myLikeEnd_categoryId != ''">
+         AND category_id like CONCAT( #{myLikeEnd_categoryId,jdbcType=INTEGER},'%' )
+      </if>
+      <if test="myLikeEnd_supplier != null and myLikeEnd_supplier != ''">
+         AND supplier like CONCAT( #{myLikeEnd_supplier,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_status != null and myLikeEnd_status != ''">
+         AND status like CONCAT( #{myLikeEnd_status,jdbcType=TINYINT},'%' )
+      </if>
+      <if test="myLikeEnd_isPictureFinish != null and myLikeEnd_isPictureFinish != ''">
+         AND is_picture_finish like CONCAT( #{myLikeEnd_isPictureFinish,jdbcType=BIT},'%' )
+      </if>
+      <if test="myLikeEnd_deleteFlag != null and myLikeEnd_deleteFlag != ''">
+         AND delete_flag like CONCAT( #{myLikeEnd_deleteFlag,jdbcType=BIT},'%' )
+      </if>
+      <if test="myLikeEnd_createPerson != null and myLikeEnd_createPerson != ''">
+         AND create_person like CONCAT( #{myLikeEnd_createPerson,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_createDate != null and myLikeEnd_createDate != ''">
+         AND create_date like CONCAT( #{myLikeEnd_createDate,jdbcType=TIMESTAMP},'%' )
+      </if>
+      <if test="myLikeEnd_updatePerson != null and myLikeEnd_updatePerson != ''">
+         AND update_person like CONCAT( #{myLikeEnd_updatePerson,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_updateDate != null and myLikeEnd_updateDate != ''">
+         AND update_date like CONCAT( #{myLikeEnd_updateDate,jdbcType=TIMESTAMP},'%' )
+      </if>
+      <if test="myIn_id != null and myIn_id != ''">
+         AND id in <foreach item="item" index="index" collection="myIn_id" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_sno != null and myIn_sno != ''">
+         AND sno in <foreach item="item" index="index" collection="myIn_sno" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_name != null and myIn_name != ''">
+         AND name in <foreach item="item" index="index" collection="myIn_name" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_protocol != null and myIn_protocol != ''">
+         AND protocol in <foreach item="item" index="index" collection="myIn_protocol" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_brandId != null and myIn_brandId != ''">
+         AND brand_id in <foreach item="item" index="index" collection="myIn_brandId" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_categoryId != null and myIn_categoryId != ''">
+         AND category_id in <foreach item="item" index="index" collection="myIn_categoryId" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_supplier != null and myIn_supplier != ''">
+         AND supplier in <foreach item="item" index="index" collection="myIn_supplier" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_status != null and myIn_status != ''">
+         AND status in <foreach item="item" index="index" collection="myIn_status" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_isPictureFinish != null and myIn_isPictureFinish != ''">
+         AND is_picture_finish in <foreach item="item" index="index" collection="myIn_isPictureFinish" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_deleteFlag != null and myIn_deleteFlag != ''">
+         AND delete_flag in <foreach item="item" index="index" collection="myIn_deleteFlag" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_createPerson != null and myIn_createPerson != ''">
+         AND create_person in <foreach item="item" index="index" collection="myIn_createPerson" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_createDate != null and myIn_createDate != ''">
+         AND create_date in <foreach item="item" index="index" collection="myIn_createDate" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_updatePerson != null and myIn_updatePerson != ''">
+         AND update_person in <foreach item="item" index="index" collection="myIn_updatePerson" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_updateDate != null and myIn_updateDate != ''">
+         AND update_date in <foreach item="item" index="index" collection="myIn_updateDate" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+    </trim>
+  </sql>
+  <insert id="batchInsert" parameterType="map">
+    insert into c_deviceinfo (id, sno, name, protocol, brand_id, category_id, supplier, status, is_picture_finish, delete_flag, create_person, create_date, update_person, update_date)
+    values
+    <foreach collection="list" item="item" separator=",">
+       (#{item.id,jdbcType=INTEGER}, #{item.sno,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.protocol,jdbcType=VARCHAR}, #{item.brandId,jdbcType=INTEGER}, #{item.categoryId,jdbcType=INTEGER}, #{item.supplier,jdbcType=VARCHAR}, #{item.status,jdbcType=TINYINT}, #{item.isPictureFinish,jdbcType=BIT}, #{item.deleteFlag,jdbcType=BIT}, #{item.createPerson,jdbcType=VARCHAR}, #{item.createDate,jdbcType=TIMESTAMP}, #{item.updatePerson,jdbcType=VARCHAR}, #{item.updateDate,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="batchInsertSelective" parameterType="map">
+    insert into c_deviceinfo (
+    <foreach collection="selective" item="column" separator=",">
+      ${column.value}
+    </foreach>
+    )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (
+      <foreach collection="selective" item="column" separator=",">
+        <if test="'id' == column.value">
+          #{item.id,jdbcType=INTEGER}
+        </if>
+        <if test="'sno' == column.value">
+          #{item.sno,jdbcType=VARCHAR}
+        </if>
+        <if test="'name' == column.value">
+          #{item.name,jdbcType=VARCHAR}
+        </if>
+        <if test="'protocol' == column.value">
+          #{item.protocol,jdbcType=VARCHAR}
+        </if>
+        <if test="'brand_id' == column.value">
+          #{item.brandId,jdbcType=INTEGER}
+        </if>
+        <if test="'category_id' == column.value">
+          #{item.categoryId,jdbcType=INTEGER}
+        </if>
+        <if test="'supplier' == column.value">
+          #{item.supplier,jdbcType=VARCHAR}
+        </if>
+        <if test="'status' == column.value">
+          #{item.status,jdbcType=TINYINT}
+        </if>
+        <if test="'is_picture_finish' == column.value">
+          #{item.isPictureFinish,jdbcType=BIT}
+        </if>
+        <if test="'delete_flag' == column.value">
+          #{item.deleteFlag,jdbcType=BIT}
+        </if>
+        <if test="'create_person' == column.value">
+          #{item.createPerson,jdbcType=VARCHAR}
+        </if>
+        <if test="'create_date' == column.value">
+          #{item.createDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'update_person' == column.value">
+          #{item.updatePerson,jdbcType=VARCHAR}
+        </if>
+        <if test="'update_date' == column.value">
+          #{item.updateDate,jdbcType=TIMESTAMP}
+        </if>
+      </foreach>
+      )
+    </foreach>
+  </insert>
+  
+  <!--  START 以下为自己编写的代码区域 一般是多表之间的联合查询  START  -->
+  <sql id="where">
+    where c_deviceinfo.delete_flag=0
+    <if test="keyWord!=null and keyWord!=''">
+      and c_deviceinfo.sno like CONCAT('%',#{keyWord},'%')
+      or c_deviceinfo.name like CONCAT('%',#{keyWord},'%')
+      or c_deviceinfo.supplier like CONCAT('%',#{keyWord},'%')
+      or c_deviceinfo.protocol like CONCAT('%',#{keyWord},'%')
+    </if>
+    <if test="updatePerson!=null and updatePerson!=''">
+      and c_deviceinfo.update_person = #{updatePerson}
+    </if>
+    <if test="updateDateMin!=null and updateDateMin!=''">
+      and c_deviceinfo.update_date &gt;= #{updateDateMin}
+    </if>
+    <if test="updateDateMax!=null and updateDateMax!=''">
+      and c_deviceinfo.update_date &lt;= #{updateDateMax}
+    </if>
+
+    <if test="brandId != null and brandId!= ''">
+      and c_deviceinfo.brand_id = #{brandId}
+    </if>
+    <if test="categoryId != null and categoryId != ''">
+      and c_deviceinfo.category_id = #{categoryId}
+    </if>
+   <!-- <if test="supplier != null and supplier != ''">  此处放入模糊查询，需要时再打开
+      and c_deviceinfo.supplier = #{supplier}
+    </if>-->
+    <if test="status != null and status != ''">
+      and c_deviceinfo.status = #{status}
+    </if>
+  </sql>
+
+  <sql id="orderby">
+    order by c_deviceinfo.id desc
+  </sql>
+
+  <sql id="Base_Column_List2" >
+    c_deviceinfo.id, c_deviceinfo.sno, c_deviceinfo.name, c_deviceinfo.protocol, c_deviceinfo.brand_id, c_deviceinfo.category_id, c_deviceinfo.supplier, c_deviceinfo.status, c_deviceinfo.is_picture_finish,
+    c_deviceinfo.delete_flag, c_deviceinfo.create_person, c_deviceinfo.create_date, c_deviceinfo.update_person, c_deviceinfo.update_date, c_brand.name brand_name, c_category.name category_name
+  </sql>
+
+  <sql id="limit">
+    limit #{iDisplayStart},#{iDisplayLength}
+  </sql>
+
+  <select id="getDeviceinfoTotalBySearch" parameterType="com.jqm.ssm.entity.relate.DeviceinfoSearchModel" resultType="java.lang.Integer">
+    select count(0)
+    from c_deviceinfo
+    <include refid="where"/>
+  </select>
+
+  <select id="getDeviceinfoListBySearch" parameterType="com.jqm.ssm.entity.relate.DeviceinfoSearchModel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List2" />
+    from c_deviceinfo left join c_brand on c_deviceinfo.brand_id = c_brand.id
+          left join c_category on c_deviceinfo.category_id = c_category.id
+    <include refid="where"/>
+    <include refid="orderby"/>
+    <include refid="limit"/>
+  </select>
+
+  <!--  END 以下为自己编写的代码区域 一般是多表之间的联合查询  END  -->
+</mapper>

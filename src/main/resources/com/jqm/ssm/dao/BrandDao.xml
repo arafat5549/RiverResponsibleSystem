@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jqm.ssm.dao.BrandDao">
+  <resultMap id="BaseResultMap" type="com.jqm.ssm.entity.Brand">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="ename" jdbcType="VARCHAR" property="ename" />
+    <result column="website" jdbcType="VARCHAR" property="website" />
+    <result column="pic_large" jdbcType="VARCHAR" property="picLarge" />
+    <result column="pic_middle" jdbcType="VARCHAR" property="picMiddle" />
+    <result column="pic_small" jdbcType="VARCHAR" property="picSmall" />
+    <result column="letter" jdbcType="CHAR" property="letter" />
+    <result column="sort_no" jdbcType="INTEGER" property="sortNo" />
+    <result column="delete_flag" jdbcType="BIT" property="deleteFlag" />
+    <result column="create_person" jdbcType="VARCHAR" property="createPerson" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_person" jdbcType="VARCHAR" property="updatePerson" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, ename, website, pic_large, pic_middle, pic_small, letter, sort_no, delete_flag, 
+    create_person, create_date, update_person, update_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from c_brand
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from c_brand
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jqm.ssm.entity.Brand">
+    insert into c_brand (id, name, ename, 
+      website, pic_large, pic_middle, 
+      pic_small, letter, sort_no, 
+      delete_flag, create_person, create_date, 
+      update_person, update_date)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{ename,jdbcType=VARCHAR}, 
+      #{website,jdbcType=VARCHAR}, #{picLarge,jdbcType=VARCHAR}, #{picMiddle,jdbcType=VARCHAR}, 
+      #{picSmall,jdbcType=VARCHAR}, #{letter,jdbcType=CHAR}, #{sortNo,jdbcType=INTEGER}, 
+      #{deleteFlag,jdbcType=BIT}, #{createPerson,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updatePerson,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jqm.ssm.entity.Brand">
+    insert into c_brand
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="ename != null">
+        ename,
+      </if>
+      <if test="website != null">
+        website,
+      </if>
+      <if test="picLarge != null">
+        pic_large,
+      </if>
+      <if test="picMiddle != null">
+        pic_middle,
+      </if>
+      <if test="picSmall != null">
+        pic_small,
+      </if>
+      <if test="letter != null">
+        letter,
+      </if>
+      <if test="sortNo != null">
+        sort_no,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+      <if test="createPerson != null">
+        create_person,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updatePerson != null">
+        update_person,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ename != null">
+        #{ename,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null">
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="picLarge != null">
+        #{picLarge,jdbcType=VARCHAR},
+      </if>
+      <if test="picMiddle != null">
+        #{picMiddle,jdbcType=VARCHAR},
+      </if>
+      <if test="picSmall != null">
+        #{picSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="letter != null">
+        #{letter,jdbcType=CHAR},
+      </if>
+      <if test="sortNo != null">
+        #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=BIT},
+      </if>
+      <if test="createPerson != null">
+        #{createPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatePerson != null">
+        #{updatePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jqm.ssm.entity.Brand">
+    update c_brand
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ename != null">
+        ename = #{ename,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null">
+        website = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="picLarge != null">
+        pic_large = #{picLarge,jdbcType=VARCHAR},
+      </if>
+      <if test="picMiddle != null">
+        pic_middle = #{picMiddle,jdbcType=VARCHAR},
+      </if>
+      <if test="picSmall != null">
+        pic_small = #{picSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="letter != null">
+        letter = #{letter,jdbcType=CHAR},
+      </if>
+      <if test="sortNo != null">
+        sort_no = #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag = #{deleteFlag,jdbcType=BIT},
+      </if>
+      <if test="createPerson != null">
+        create_person = #{createPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatePerson != null">
+        update_person = #{updatePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jqm.ssm.entity.Brand">
+    update c_brand
+    set name = #{name,jdbcType=VARCHAR},
+      ename = #{ename,jdbcType=VARCHAR},
+      website = #{website,jdbcType=VARCHAR},
+      pic_large = #{picLarge,jdbcType=VARCHAR},
+      pic_middle = #{picMiddle,jdbcType=VARCHAR},
+      pic_small = #{picSmall,jdbcType=VARCHAR},
+      letter = #{letter,jdbcType=CHAR},
+      sort_no = #{sortNo,jdbcType=INTEGER},
+      delete_flag = #{deleteFlag,jdbcType=BIT},
+      create_person = #{createPerson,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_person = #{updatePerson,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="deleteLogicByIds">
+    update c_brand set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach> 
+  </update>
+  <sql id="OracleDialectPrefix">
+    <if test="page != null and databaseId == 'oracle'">
+      select * from ( select row_.*, rownum rownum_ from ( 
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix">
+    <if test="page != null and databaseId == 'oracle'">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.begin} and rownum_ <= #{page.end} ]]>
+    </if>
+  </sql>
+  <sql id="MysqlDialect">
+    <if test="page != null and databaseId == 'mysql'">
+      limit #{page.begin} , #{page.length}
+    </if>
+  </sql>
+  <select id="selectCountByMap" parameterType="map" resultType="int">
+    select count(*) from  <if test="dynamicTableName != null and dynamicTableName != ''"> ${dynamicTableName}  </if><if test="dynamicTableName == null or dynamicTableName == ''"> c_brand</if> <include refid="Base_Query_Map_Condition" /> 
+  </select>
+  <select id="selectListByMap" parameterType="map" resultMap="BaseResultMap">
+     <include refid="OracleDialectPrefix" /> select <include refid="Base_Column_List" /> from  <if test="dynamicTableName != null and dynamicTableName != ''"> ${dynamicTableName}  </if><if test="dynamicTableName == null or dynamicTableName == ''"> c_brand</if> <include refid="Base_Query_Map_Condition" />  order by  id desc <include refid="OracleDialectSuffix" /><include refid="MysqlDialect" /> 
+  </select>
+
+  <sql id="where">
+    where delete_flag=0
+    <if test="keyWord!=null and keyWord!=''">
+      and name like CONCAT('%',#{keyWord},'%')
+      or ename like CONCAT('%',#{keyWord},'%')
+      or website like CONCAT('%',#{keyWord},'%')
+    </if>
+    <if test="updatePerson!=null and updatePerson!=''">
+      and update_person = #{updatePerson}
+    </if>
+    <if test="updateDateMin!=null and updateDateMin!=''">
+      and update_date &gt;= #{updateDateMin}
+    </if>
+    <if test="updateDateMax!=null and updateDateMax!=''">
+      and update_date &lt;= #{updateDateMax}
+    </if>
+  </sql>
+
+  <sql id="limit">
+    limit #{iDisplayStart},#{iDisplayLength}
+  </sql>
+  <select id="getBrandTotalBySearch" parameterType="com.jqm.ssm.entity.relate.BrandSearchModel" resultType="java.lang.Integer" >
+    select count(0)
+    from c_brand
+    <include refid="where"/>
+  </select>
+
+  <select id="getBrandListBySearch" parameterType="com.jqm.ssm.entity.relate.BrandSearchModel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from c_brand
+    <include refid="where"/>
+    <include refid="limit"/>
+   <!-- <include refid="orderby"/>-->
+  </select>
+  <sql id="Base_Query_Map_Condition">
+    <trim prefix="where" prefixOverrides="and | or">
+      <if test="id != null and id != ''">
+         AND id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="name != null and name != ''">
+         AND name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="ename != null and ename != ''">
+         AND ename = #{ename,jdbcType=VARCHAR}
+      </if>
+      <if test="website != null and website != ''">
+         AND website = #{website,jdbcType=VARCHAR}
+      </if>
+      <if test="picLarge != null and picLarge != ''">
+         AND pic_large = #{picLarge,jdbcType=VARCHAR}
+      </if>
+      <if test="picMiddle != null and picMiddle != ''">
+         AND pic_middle = #{picMiddle,jdbcType=VARCHAR}
+      </if>
+      <if test="picSmall != null and picSmall != ''">
+         AND pic_small = #{picSmall,jdbcType=VARCHAR}
+      </if>
+      <if test="letter != null and letter != ''">
+         AND letter = #{letter,jdbcType=CHAR}
+      </if>
+      <if test="sortNo != null and sortNo != ''">
+         AND sort_no = #{sortNo,jdbcType=INTEGER}
+      </if>
+      <if test="deleteFlag != null and deleteFlag != ''">
+         AND delete_flag = #{deleteFlag,jdbcType=BIT}
+      </if>
+      <if test="createPerson != null and createPerson != ''">
+         AND create_person = #{createPerson,jdbcType=VARCHAR}
+      </if>
+      <if test="createDate != null and createDate != ''">
+         AND create_date = #{createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updatePerson != null and updatePerson != ''">
+         AND update_person = #{updatePerson,jdbcType=VARCHAR}
+      </if>
+      <if test="updateDate != null and updateDate != ''">
+         AND update_date = #{updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="myGreater_id != null and myGreater_id != ''">
+         AND id &gt; #{myGreater_id,jdbcType=INTEGER}
+      </if>
+      <if test="myGreater_name != null and myGreater_name != ''">
+         AND name &gt; #{myGreater_name,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_ename != null and myGreater_ename != ''">
+         AND ename &gt; #{myGreater_ename,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_website != null and myGreater_website != ''">
+         AND website &gt; #{myGreater_website,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_picLarge != null and myGreater_picLarge != ''">
+         AND pic_large &gt; #{myGreater_picLarge,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_picMiddle != null and myGreater_picMiddle != ''">
+         AND pic_middle &gt; #{myGreater_picMiddle,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_picSmall != null and myGreater_picSmall != ''">
+         AND pic_small &gt; #{myGreater_picSmall,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_letter != null and myGreater_letter != ''">
+         AND letter &gt; #{myGreater_letter,jdbcType=CHAR}
+      </if>
+      <if test="myGreater_sortNo != null and myGreater_sortNo != ''">
+         AND sort_no &gt; #{myGreater_sortNo,jdbcType=INTEGER}
+      </if>
+      <if test="myGreater_deleteFlag != null and myGreater_deleteFlag != ''">
+         AND delete_flag &gt; #{myGreater_deleteFlag,jdbcType=BIT}
+      </if>
+      <if test="myGreater_createPerson != null and myGreater_createPerson != ''">
+         AND create_person &gt; #{myGreater_createPerson,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_createDate != null and myGreater_createDate != ''">
+         AND create_date &gt; #{myGreater_createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="myGreater_updatePerson != null and myGreater_updatePerson != ''">
+         AND update_person &gt; #{myGreater_updatePerson,jdbcType=VARCHAR}
+      </if>
+      <if test="myGreater_updateDate != null and myGreater_updateDate != ''">
+         AND update_date &gt; #{myGreater_updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="myLesser_id != null and myLesser_id != ''">
+         AND id &lt; #{myLesser_id,jdbcType=INTEGER}
+      </if>
+      <if test="myLesser_name != null and myLesser_name != ''">
+         AND name &lt; #{myLesser_name,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_ename != null and myLesser_ename != ''">
+         AND ename &lt; #{myLesser_ename,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_website != null and myLesser_website != ''">
+         AND website &lt; #{myLesser_website,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_picLarge != null and myLesser_picLarge != ''">
+         AND pic_large &lt; #{myLesser_picLarge,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_picMiddle != null and myLesser_picMiddle != ''">
+         AND pic_middle &lt; #{myLesser_picMiddle,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_picSmall != null and myLesser_picSmall != ''">
+         AND pic_small &lt; #{myLesser_picSmall,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_letter != null and myLesser_letter != ''">
+         AND letter &lt; #{myLesser_letter,jdbcType=CHAR}
+      </if>
+      <if test="myLesser_sortNo != null and myLesser_sortNo != ''">
+         AND sort_no &lt; #{myLesser_sortNo,jdbcType=INTEGER}
+      </if>
+      <if test="myLesser_deleteFlag != null and myLesser_deleteFlag != ''">
+         AND delete_flag &lt; #{myLesser_deleteFlag,jdbcType=BIT}
+      </if>
+      <if test="myLesser_createPerson != null and myLesser_createPerson != ''">
+         AND create_person &lt; #{myLesser_createPerson,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_createDate != null and myLesser_createDate != ''">
+         AND create_date &lt; #{myLesser_createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="myLesser_updatePerson != null and myLesser_updatePerson != ''">
+         AND update_person &lt; #{myLesser_updatePerson,jdbcType=VARCHAR}
+      </if>
+      <if test="myLesser_updateDate != null and myLesser_updateDate != ''">
+         AND update_date &lt; #{myLesser_updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="myLike_id != null and myLike_id != ''">
+         AND id like CONCAT('%', #{myLike_id,jdbcType=INTEGER},'%' )
+      </if>
+      <if test="myLike_name != null and myLike_name != ''">
+         AND name like CONCAT('%', #{myLike_name,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_ename != null and myLike_ename != ''">
+         AND ename like CONCAT('%', #{myLike_ename,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_website != null and myLike_website != ''">
+         AND website like CONCAT('%', #{myLike_website,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_picLarge != null and myLike_picLarge != ''">
+         AND pic_large like CONCAT('%', #{myLike_picLarge,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_picMiddle != null and myLike_picMiddle != ''">
+         AND pic_middle like CONCAT('%', #{myLike_picMiddle,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_picSmall != null and myLike_picSmall != ''">
+         AND pic_small like CONCAT('%', #{myLike_picSmall,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_letter != null and myLike_letter != ''">
+         AND letter like CONCAT('%', #{myLike_letter,jdbcType=CHAR},'%' )
+      </if>
+      <if test="myLike_sortNo != null and myLike_sortNo != ''">
+         AND sort_no like CONCAT('%', #{myLike_sortNo,jdbcType=INTEGER},'%' )
+      </if>
+      <if test="myLike_deleteFlag != null and myLike_deleteFlag != ''">
+         AND delete_flag like CONCAT('%', #{myLike_deleteFlag,jdbcType=BIT},'%' )
+      </if>
+      <if test="myLike_createPerson != null and myLike_createPerson != ''">
+         AND create_person like CONCAT('%', #{myLike_createPerson,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_createDate != null and myLike_createDate != ''">
+         AND create_date like CONCAT('%', #{myLike_createDate,jdbcType=TIMESTAMP},'%' )
+      </if>
+      <if test="myLike_updatePerson != null and myLike_updatePerson != ''">
+         AND update_person like CONCAT('%', #{myLike_updatePerson,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLike_updateDate != null and myLike_updateDate != ''">
+         AND update_date like CONCAT('%', #{myLike_updateDate,jdbcType=TIMESTAMP},'%' )
+      </if>
+      <if test="myLikeStart_id != null and myLikeStart_id != ''">
+         AND id like CONCAT('%', #{myLikeStart_id,jdbcType=INTEGER})
+      </if>
+      <if test="myLikeStart_name != null and myLikeStart_name != ''">
+         AND name like CONCAT('%', #{myLikeStart_name,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_ename != null and myLikeStart_ename != ''">
+         AND ename like CONCAT('%', #{myLikeStart_ename,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_website != null and myLikeStart_website != ''">
+         AND website like CONCAT('%', #{myLikeStart_website,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_picLarge != null and myLikeStart_picLarge != ''">
+         AND pic_large like CONCAT('%', #{myLikeStart_picLarge,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_picMiddle != null and myLikeStart_picMiddle != ''">
+         AND pic_middle like CONCAT('%', #{myLikeStart_picMiddle,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_picSmall != null and myLikeStart_picSmall != ''">
+         AND pic_small like CONCAT('%', #{myLikeStart_picSmall,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_letter != null and myLikeStart_letter != ''">
+         AND letter like CONCAT('%', #{myLikeStart_letter,jdbcType=CHAR})
+      </if>
+      <if test="myLikeStart_sortNo != null and myLikeStart_sortNo != ''">
+         AND sort_no like CONCAT('%', #{myLikeStart_sortNo,jdbcType=INTEGER})
+      </if>
+      <if test="myLikeStart_deleteFlag != null and myLikeStart_deleteFlag != ''">
+         AND delete_flag like CONCAT('%', #{myLikeStart_deleteFlag,jdbcType=BIT})
+      </if>
+      <if test="myLikeStart_createPerson != null and myLikeStart_createPerson != ''">
+         AND create_person like CONCAT('%', #{myLikeStart_createPerson,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_createDate != null and myLikeStart_createDate != ''">
+         AND create_date like CONCAT('%', #{myLikeStart_createDate,jdbcType=TIMESTAMP})
+      </if>
+      <if test="myLikeStart_updatePerson != null and myLikeStart_updatePerson != ''">
+         AND update_person like CONCAT('%', #{myLikeStart_updatePerson,jdbcType=VARCHAR})
+      </if>
+      <if test="myLikeStart_updateDate != null and myLikeStart_updateDate != ''">
+         AND update_date like CONCAT('%', #{myLikeStart_updateDate,jdbcType=TIMESTAMP})
+      </if>
+      <if test="myLikeEnd_id != null and myLikeEnd_id != ''">
+         AND id like CONCAT( #{myLikeEnd_id,jdbcType=INTEGER},'%' )
+      </if>
+      <if test="myLikeEnd_name != null and myLikeEnd_name != ''">
+         AND name like CONCAT( #{myLikeEnd_name,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_ename != null and myLikeEnd_ename != ''">
+         AND ename like CONCAT( #{myLikeEnd_ename,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_website != null and myLikeEnd_website != ''">
+         AND website like CONCAT( #{myLikeEnd_website,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_picLarge != null and myLikeEnd_picLarge != ''">
+         AND pic_large like CONCAT( #{myLikeEnd_picLarge,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_picMiddle != null and myLikeEnd_picMiddle != ''">
+         AND pic_middle like CONCAT( #{myLikeEnd_picMiddle,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_picSmall != null and myLikeEnd_picSmall != ''">
+         AND pic_small like CONCAT( #{myLikeEnd_picSmall,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_letter != null and myLikeEnd_letter != ''">
+         AND letter like CONCAT( #{myLikeEnd_letter,jdbcType=CHAR},'%' )
+      </if>
+      <if test="myLikeEnd_sortNo != null and myLikeEnd_sortNo != ''">
+         AND sort_no like CONCAT( #{myLikeEnd_sortNo,jdbcType=INTEGER},'%' )
+      </if>
+      <if test="myLikeEnd_deleteFlag != null and myLikeEnd_deleteFlag != ''">
+         AND delete_flag like CONCAT( #{myLikeEnd_deleteFlag,jdbcType=BIT},'%' )
+      </if>
+      <if test="myLikeEnd_createPerson != null and myLikeEnd_createPerson != ''">
+         AND create_person like CONCAT( #{myLikeEnd_createPerson,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_createDate != null and myLikeEnd_createDate != ''">
+         AND create_date like CONCAT( #{myLikeEnd_createDate,jdbcType=TIMESTAMP},'%' )
+      </if>
+      <if test="myLikeEnd_updatePerson != null and myLikeEnd_updatePerson != ''">
+         AND update_person like CONCAT( #{myLikeEnd_updatePerson,jdbcType=VARCHAR},'%' )
+      </if>
+      <if test="myLikeEnd_updateDate != null and myLikeEnd_updateDate != ''">
+         AND update_date like CONCAT( #{myLikeEnd_updateDate,jdbcType=TIMESTAMP},'%' )
+      </if>
+      <if test="myIn_id != null and myIn_id != ''">
+         AND id in <foreach item="item" index="index" collection="myIn_id" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_name != null and myIn_name != ''">
+         AND name in <foreach item="item" index="index" collection="myIn_name" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_ename != null and myIn_ename != ''">
+         AND ename in <foreach item="item" index="index" collection="myIn_ename" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_website != null and myIn_website != ''">
+         AND website in <foreach item="item" index="index" collection="myIn_website" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_picLarge != null and myIn_picLarge != ''">
+         AND pic_large in <foreach item="item" index="index" collection="myIn_picLarge" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_picMiddle != null and myIn_picMiddle != ''">
+         AND pic_middle in <foreach item="item" index="index" collection="myIn_picMiddle" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_picSmall != null and myIn_picSmall != ''">
+         AND pic_small in <foreach item="item" index="index" collection="myIn_picSmall" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_letter != null and myIn_letter != ''">
+         AND letter in <foreach item="item" index="index" collection="myIn_letter" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_sortNo != null and myIn_sortNo != ''">
+         AND sort_no in <foreach item="item" index="index" collection="myIn_sortNo" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_deleteFlag != null and myIn_deleteFlag != ''">
+         AND delete_flag in <foreach item="item" index="index" collection="myIn_deleteFlag" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_createPerson != null and myIn_createPerson != ''">
+         AND create_person in <foreach item="item" index="index" collection="myIn_createPerson" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_createDate != null and myIn_createDate != ''">
+         AND create_date in <foreach item="item" index="index" collection="myIn_createDate" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_updatePerson != null and myIn_updatePerson != ''">
+         AND update_person in <foreach item="item" index="index" collection="myIn_updatePerson" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_updateDate != null and myIn_updateDate != ''">
+         AND update_date in <foreach item="item" index="index" collection="myIn_updateDate" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+    </trim>
+  </sql>
+  <insert id="batchInsert" parameterType="map">
+    insert into c_brand (id, name, ename, website, pic_large, pic_middle, pic_small, letter, sort_no, delete_flag, create_person, create_date, update_person, update_date)
+    values
+    <foreach collection="list" item="item" separator=",">
+       (#{item.id,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, #{item.ename,jdbcType=VARCHAR}, #{item.website,jdbcType=VARCHAR}, #{item.picLarge,jdbcType=VARCHAR}, #{item.picMiddle,jdbcType=VARCHAR}, #{item.picSmall,jdbcType=VARCHAR}, #{item.letter,jdbcType=CHAR}, #{item.sortNo,jdbcType=INTEGER}, #{item.deleteFlag,jdbcType=BIT}, #{item.createPerson,jdbcType=VARCHAR}, #{item.createDate,jdbcType=TIMESTAMP}, #{item.updatePerson,jdbcType=VARCHAR}, #{item.updateDate,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="batchInsertSelective" parameterType="map">
+    insert into c_brand (
+    <foreach collection="selective" item="column" separator=",">
+      ${column.value}
+    </foreach>
+    )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (
+      <foreach collection="selective" item="column" separator=",">
+        <if test="'id' == column.value">
+          #{item.id,jdbcType=INTEGER}
+        </if>
+        <if test="'name' == column.value">
+          #{item.name,jdbcType=VARCHAR}
+        </if>
+        <if test="'ename' == column.value">
+          #{item.ename,jdbcType=VARCHAR}
+        </if>
+        <if test="'website' == column.value">
+          #{item.website,jdbcType=VARCHAR}
+        </if>
+        <if test="'pic_large' == column.value">
+          #{item.picLarge,jdbcType=VARCHAR}
+        </if>
+        <if test="'pic_middle' == column.value">
+          #{item.picMiddle,jdbcType=VARCHAR}
+        </if>
+        <if test="'pic_small' == column.value">
+          #{item.picSmall,jdbcType=VARCHAR}
+        </if>
+        <if test="'letter' == column.value">
+          #{item.letter,jdbcType=CHAR}
+        </if>
+        <if test="'sort_no' == column.value">
+          #{item.sortNo,jdbcType=INTEGER}
+        </if>
+        <if test="'delete_flag' == column.value">
+          #{item.deleteFlag,jdbcType=BIT}
+        </if>
+        <if test="'create_person' == column.value">
+          #{item.createPerson,jdbcType=VARCHAR}
+        </if>
+        <if test="'create_date' == column.value">
+          #{item.createDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'update_person' == column.value">
+          #{item.updatePerson,jdbcType=VARCHAR}
+        </if>
+        <if test="'update_date' == column.value">
+          #{item.updateDate,jdbcType=TIMESTAMP}
+        </if>
+      </foreach>
+      )
+    </foreach>
+  </insert>
+  
+  <!--  START 以下为自己编写的代码区域 一般是多表之间的联合查询  START  -->
+  
+  
+  <!--  END 以下为自己编写的代码区域 一般是多表之间的联合查询  END  -->
+</mapper>

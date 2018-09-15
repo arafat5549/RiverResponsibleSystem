@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 这是标准配置，可以解决ResponseBody中文乱码问题-->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>text/plain;charset=UTF-8</value>
+                            <value>text/html;charset=UTF-8</value>
+                        </list>
+                    </property>
+                    <property name="writeAcceptCharset" value="false"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+
+    <!-- 激活组件扫描功能,扫描aop的相关组件组件 -->
+    <context:component-scan base-package="com.jqm.ssm.aop"/>
+    <!-- 启动对@AspectJ注解的支持 -->
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+
+    <!--简化配置:
+    	1、自动注册DefaultAnnotationHandlerMapping,AnnotationMethodHandlerAdapter
+    	2、提供一系列:数据绑定,数字和日期的format,@NumberFormat,@DataTimeFormat,xml,json默认读写支持
+-->
+      <mvc:annotation-driven/>
+
+
+    <!--
+       <mvc:annotation-driven>
+           <mvc:message-converters register-defaults="true">
+               <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                   <property name="supportedMediaTypes">
+                       <list>
+                           <value>text/html;charset=UTF-8</value>
+                           <value>application/json</value>
+                       </list>
+                   </property>
+                   <property name="features">
+                       <list>
+                           <value>WriteMapNullValue</value>
+                           <value>QuoteFieldNames</value>
+                       </list>
+                   </property>
+               </bean>
+           </mvc:message-converters>
+       </mvc:annotation-driven>
+       -->
+
+    <!--静态资源默认servlet配置
+    	1、加入对静态资源的处理:js,css,gif,png
+    	2、允许使用"/"做整体映射
+    -->
+    <mvc:default-servlet-handler/>
+
+    <!--配置JSP　显示ViewResolver
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>-->
+    <!-- Freemarker配置，参考： http://www.cnblogs.com/hoojo/archive/2011/04/19/2020551.html-->
+    <bean id="freemarkerConfig"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <!-- 视图资源位置 -->
+        <property name="templateLoaderPath" value="/WEB-INF/ftl2/" />
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="template_update_delay">0</prop><!-- 模板更新延时 -->
+                <prop key="locale">zh_CN</prop>
+                <prop key="default_encoding">UTF-8</prop>
+                <prop key="output_encoding">UTF-8</prop>
+                <prop key="template_exception_handler">rethrow</prop>
+                <prop key="number_format">#.##</prop>
+                <prop key="date_format">yyyy-MM-dd</prop>
+                <prop key="time_format">HH:mm:ss</prop>
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+            </props>
+        </property>
+        <!-- 全局变量部分 -->
+        <property name="freemarkerVariables">
+            <map>
+                <entry key="BasePath" value="${web.basepath}" />
+                <entry key="IncPath" value="${inc.basepath}" />
+                <entry key="xml_escape" value-ref="fmXmlEscape" />
+            </map>
+        </property>
+    </bean>
+    <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
+    <!-- 配置freeMarker视图解析器 -->
+    <bean id="ftlviewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+        <!-- 如果配置了这个节点，则视图必须是ftl，redirect等前缀都失效了 -->
+        <!-- <property name="viewNames" value="*.ftl"/> -->
+        <property name="contentType" value="text/html;charset=UTF-8" />
+        <property name="cache" value="false" />
+        <property name="prefix" value="" />
+        <property name="suffix" value="" />
+    </bean>
+
+
+
+    <!--扫描web相关的controller-->
+    <context:component-scan base-package="com.jqm.ssm.web"/>
+
+    <!--<bean class="com.jqm.ssm.interceptor.CorsConfigurerAdapter"/>-->
+    <!-- 拦截器-->
+    <mvc:interceptors>
+        <!-- 更改语言环境时，一个'locale'的请求参数发送
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />-->
+
+        <mvc:interceptor>
+            <mvc:mapping path="/user/**" />
+            <mvc:mapping path="/department/**" />
+            <mvc:mapping path="/role/**" />
+            <mvc:mapping path="/module/**" />
+            <mvc:mapping path="/permission/**" />
+            <mvc:mapping path="/resource/**" />
+            <mvc:mapping path="/api/**" />
+
+            <mvc:mapping path="/brand/**" />
+            <mvc:mapping path="/category/**" />
+            <mvc:mapping path="/deviceinfo/**" />
+            <mvc:mapping path="/devicegps/**" />
+            <mvc:mapping path="/dictionary/**" />
+            <mvc:mapping path="/deviceinfoData/**" />
+
+            <mvc:mapping path="/assets/**" />
+            <mvc:mapping path="/test/**" />
+            <mvc:mapping path="/*" />
+            <!--
+                <mvc:mapping path="/" />
+            -->
+            <mvc:exclude-mapping path="/user/login" />
+            <bean class="com.jqm.ssm.interceptor.TokenInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!--全局异常捕捉 -->
+	<bean class="com.jqm.ssm.exception.GlobalExceptionResolver" />
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="5120000" />
+        <property name="maxInMemorySize" value="512" />
+    </bean>
+</beans>

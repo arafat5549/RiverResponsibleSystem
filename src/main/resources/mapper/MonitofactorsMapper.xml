@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jqmkj.WaterResponseSystem.basemapper.mapper.MonitofactorsMapper">
+
+
+    <sql id="baseField">
+        f.id,
+        f.create_person,
+        f.create_date,
+        f.update_person,
+        f.update_date,
+        f.sno,
+        f.origin_sno,
+        f.name,
+        f.ename,
+        f.unit,
+        f.overproof_max,
+        f.overproof_min,
+        f.invalid_max,
+        f.invalid_min,
+        f.warn_max,
+        f.warn_min
+    </sql>
+
+
+    <select id="findFactorsByDeviceInfoIds" parameterType="java.util.List" resultType="com.jqmkj.WaterResponseSystem.entity.Monitofactors">
+        select
+			<include refid="baseField"/>
+        From  c_monitofactors f
+        JOIN  c_monitofactors_deviceinfo df
+        JOIN  c_deviceinfo d on d.id  = df.deviceinfo_id AND f.id = df.factor_id
+        WHERE d.id in <foreach item="item" index="index" collection="deviceInfoIds" open="(" separator="," close=")"> #{item} </foreach>
+        GROUP BY f.id
+		ORDER BY f.id
+
+    </select>
+</mapper>

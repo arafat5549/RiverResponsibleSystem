@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jqmkj.WaterResponseSystem.basemapper.mapper.RoleMapper">
+
+
+    <insert id="addRole_Permssion" parameterType="Long" >
+        INSERT INTO water_role_permission(role_id,permission_id)VALUES(#{roleId},#{permissionId})
+    </insert>
+
+    <select id="getpermissionIdByroleId" parameterType="Long" resultType="Long">
+        SELECT permission_id permissionId FROM water_role_permission WHERE role_id = #{roleId}
+    </select>
+    
+    <delete id="deleteRole_PermissionByRoleId" parameterType="Long">
+        DELETE FROM water_role_permission WHERE role_id = #{roleId}
+
+    </delete>
+</mapper>

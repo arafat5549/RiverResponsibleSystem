@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jqmkj.WaterResponseSystem.basemapper.mapper.UserMapper">
+
+    <resultMap type="com.jqmkj.WaterResponseSystem.entity.SysUser" id="userMap">
+        <id property="id" column="uid"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <collection property="roles" ofType="com.jqmkj.WaterResponseSystem.entity.SysRole">
+            <id property="id" column="rid"/>
+            <result property="name" column="rname"/>
+            <collection property="permissions" ofType="com.jqmkj.WaterResponseSystem.entity.SysPermission">
+                <id property="id" column="pid"/>
+                <result property="name" column="pname"/>
+                <result property="url" column="url"/>
+                <result property="iconCls" column="icon_cls"/>
+                <result property="type" column="type"/>
+                <result property="sort" column="sort"/>
+                <result property="parentId" column="parent_id"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+
+    <!--该查询可以考虑用存储过程-->
+    <select id="findByUsername" parameterType="string" resultMap="userMap">
+        SELECT u.id uid,u.username,u.password,r.id rid,r.name rname,p.id pid,p.name pname,p.url,p.icon_cls,p.type,p.sort,p.parent_id
+         FROM water_user u
+        left join water_user_role ur on ur.user_id=u.id
+        left join water_role r on r.id=ur.role_id
+        left join water_role_permission rp on rp.role_id=r.id
+        left join water_permission p on rp.permission_id=p.id
+        WHERE username=#{username}
+    </select>
+
+    <sql id="baseField">
+        	u.id,
+            u.`name`,
+            u.username,
+            u.delete_flag,
+            u.description,
+            u.gender,
+            u.is_admin,
+            u.is_lock,
+            u.`password`,
+            u.create_time,
+            u.create_person,
+            u.update_person,
+            u.update_time,
+            u.department_id
+    </sql>
+
+    <insert id="addUser_Roles" parameterType="Long" >
+        INSERT INTO water_user_role(user_Id,role_id)VALUES(#{userId},#{roleId})
+    </insert>
+
+    <select id="getRoleIdsByUserId" parameterType="Long" resultType="Long">
+        SELECT role_id roleId FROM water_user_role WHERE user_id = #{userId}
+    </select>
+
+    <delete id="deleteUser_RoleByUserId" parameterType="Long">
+        DELETE FROM water_user_role WHERE user_id = #{userId}
+    </delete>
+
+
+
+</mapper>

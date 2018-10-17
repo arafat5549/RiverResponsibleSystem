@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jqmkj.WaterResponseSystem.basemapper.mapper.DeviceinfoMapper">
+
+
+    <sql id="baseField">
+        d.id,
+        d.create_person,
+        d.create_date,
+        d.update_person,
+        d.update_date,
+        d.sno,
+        d.name,
+        d.protocol,
+        d.brand_id,
+        d.category_id,
+        d.supplier,
+        d.status,
+        d.is_picture_finish,
+        d.delete_flag,
+        d.measure_max,
+        d.measure_min,
+        d.data_unit,
+        d.factors
+        -- d.brand_name,
+        -- d.category_name,
+        -- d.deviceinfo_picture_name
+    </sql>
+
+    <select id="findDeviceinfosBySiteIds" parameterType="java.util.List" resultType="com.jqmkj.WaterResponseSystem.entity.Deviceinfo">
+        select
+        <include refid="baseField"/>
+        From  c_deviceinfo d
+        JOIN  c_devicegps dg
+        JOIN  c_monitorsite ds
+        on dg.deviceinfo_id = d.id and dg.monitorsite_id = ds.id
+        WHERE ds.id in <foreach item="item" index="index" collection="siteIds" open="(" separator="," close=")"> #{item} </foreach>
+        GROUP BY d.id
+        ORDER BY d.id
+
+    </select>
+</mapper>

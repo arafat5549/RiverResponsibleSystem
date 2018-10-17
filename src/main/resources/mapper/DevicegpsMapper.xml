@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jqmkj.WaterResponseSystem.basemapper.mapper.DevicegpsMapper">
+
+
+    <sql id="baseField">
+        dg.id,
+        dg.create_person,
+        dg.create_date,
+        dg.update_person,
+        dg.update_date,
+        dg.monitorsite_id,
+        dg.deviceinfo_id,
+        dg.parent_id,
+        dg.structure,
+        dg.longitude,
+        dg.latitude,
+        dg.ip_address,
+        dg.port,
+        dg.url,
+        dg.status,
+        dg.delete_flag
+    </sql>
+
+    <select id="findDevicesByType" parameterType="java.lang.Integer" resultType="com.jqmkj.WaterResponseSystem.entity.Devicegps">
+        select
+         m.name as 'monitorsite_name',
+         d.name as 'deviceinfo_name',
+         c.type as 'gps_type',
+        <include refid="baseField"/>
+        From  c_devicegps dg
+        JOIN  c_deviceinfo d
+        JOIN  c_category c
+        JOIN  c_monitorsite m
+        on dg.deviceinfo_id = d.id and c.id = d.category_id and m.id = dg.monitorsite_id
+        and dg.`status`=1
+        <if test="_parameter!=null">
+          and c.type=#{type}
+        </if>
+        GROUP BY dg.id
+        ORDER BY dg.id
+
+    </select>
+
+    <select id="findDevicesByArea" parameterType="java.lang.Integer" resultType="com.jqmkj.WaterResponseSystem.entity.Devicegps">
+        select
+        m.name as 'monitorsite_name',
+        d.name as 'deviceinfo_name',
+        c.type as 'gps_type',
+        <include refid="baseField"/>
+        From  c_devicegps dg
+        JOIN  c_deviceinfo d
+        JOIN  c_category c
+        JOIN  c_monitorsite m
+        on dg.deviceinfo_id = d.id and c.id = d.category_id and m.id = dg.monitorsite_id
+        and dg.`status`=1
+        <if test="_parameter!=null">
+            and (m.parent_id=#{area} or m.id=#{area})
+        </if>
+        GROUP BY dg.id
+        ORDER BY dg.id
+
+    </select>
+</mapper>

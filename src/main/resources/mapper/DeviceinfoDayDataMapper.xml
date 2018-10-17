@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jqmkj.WaterResponseSystem.basemapper.mapper.DeviceinfoDayDataMapper">
+
+    <!--dd.id,-->
+    <!--dd.create_person,-->
+    <!--dd.update_person,-->
+    <!--dd.update_date,-->
+    <!--dd.monitorsite_id,-->
+    <!--dd.data_time,-->
+
+    <sql id="join_site">
+      JOIN c_monitorsite m
+    </sql>
+
+    <sql id="tableName">
+        ,m.name as 'monitorsite_name'
+        From  deviceinfo_day_data dd
+    </sql>
+
+    <sql id="tableNameHour">
+        ,m.name as 'monitorsite_name'
+        From  deviceinfo_hour_data dd
+    </sql>
+
+    <sql id="where_site">
+         AND m.id = dd.monitorsite_id
+        <if test="monitorSiteId!=null and monitorSiteId!='' ">
+            and m.id = #{monitorSiteId}
+        </if>
+    </sql>
+
+    <sql id="limit">
+        <if test="start!=null and rows != null and rows!= -1 ">
+            limit #{start},#{rows}
+        </if>
+    </sql>
+
+    <select id="getStatData" parameterType="com.jqmkj.WaterResponseSystem.entity.other.DeviceinfoDataSearchModel" resultType="com.jqmkj.WaterResponseSystem.entity.DeviceinfoDayData">
+
+        <if test="dateType!=null and dateType == 'year'">
+            SELECT
+
+            <foreach collection="factorList" item="item" >
+                 avg(${item}_avg) as '${item}_avg',
+            </foreach>
+              year(data_time) as 'year'
+
+            <include refid="tableName"/>
+              <include refid="join_site"/>
+            WHERE 1=1
+              <include refid="where_site"/>
+            GROUP BY year(data_time),m.id
+            ORDER BY year(data_time),m.id
+            <include refid="limit"/>
+        </if>
+
+        <if test="dateType!=null and dateType == 'month'">
+            SELECT
+             <foreach collection="factorList" item="item">
+                avg(${item}_avg) as '${item}_avg',
+             </foreach>
+              year(data_time) as 'year',
+              month(data_time) as 'month'
+            <include refid="tableName"/>
+              <include refid="join_site"/>
+            WHERE 1=1
+               and year(data_time) = #{year,jdbcType=VARCHAR}
+              <include refid="where_site"/>
+            GROUP BY year(data_time),month(data_time),m.id
+            ORDER BY year(data_time),month(data_time),m.id
+            <include refid="limit"/>
+        </if>
+
+        <if test="dateType!=null and dateType == 'week'">
+            SELECT
+            <foreach collection="factorList" item="item">
+                avg(${item}_avg) as '${item}_avg',
+            </foreach>
+              year(data_time) as 'year',
+              week(dd.data_time) as 'week'
+            <include refid="tableName"/>
+            <include refid="join_site"/>
+            WHERE 1=1
+            and year(data_time) = #{year,jdbcType=VARCHAR}
+            <include refid="where_site"/>
+            GROUP BY year(data_time),week(dd.data_time),m.id
+            ORDER BY year(data_time),week(dd.data_time),m.id
+            <include refid="limit"/>
+        </if>
+
+        <if test="dateType!=null and dateType == 'day'">
+            SELECT
+              <foreach collection="factorList" item="item">
+                avg(${item}_avg) as '${item}_avg',
+             </foreach>
+              year(data_time)  as 'year',
+              month(data_time) as 'month',
+              day(data_time)   as 'day'
+            <include refid="tableName"/>
+            <include refid="join_site"/>
+            WHERE 1=1
+            and year(data_time)  = #{year,jdbcType=VARCHAR}
+            and month(data_time) = #{month,jdbcType=VARCHAR}
+            <include refid="where_site"/>
+            GROUP BY year(data_time),month(data_time),day(data_time),m.id
+            ORDER BY year(data_time),month(data_time),day(data_time),m.id
+            <include refid="limit"/>
+        </if>
+
+        <if test="dateType!=null and dateType == 'hour'">
+            SELECT
+            <foreach collection="factorList" item="item">
+                avg(${item}_avg) as '${item}_avg',
+            </foreach>
+              year(data_time)  as 'year',
+              month(data_time) as 'month',
+              day(data_time)   as 'day',
+              hour(data_time)  as 'hour'
+            <include refid="tableNameHour"/>
+            <include refid="join_site"/>
+            WHERE 1=1
+            and year(data_time)  = #{year,jdbcType=VARCHAR}
+            and month(data_time) = #{month,jdbcType=VARCHAR}
+            and day(data_time)   = #{day,jdbcType=VARCHAR}
+            <include refid="where_site"/>
+            GROUP BY year(data_time),month(data_time),day(data_time),hour(data_time),m.id
+            ORDER BY m.id,year(data_time),month(data_time),day(data_time),hour(data_time)
+            <include refid="limit"/>
+        </if>
+
+
+        <if test="dateType!=null and dateType == 'quarter'">
+            select
+                <foreach collection="factorList" item="item">
+                    avg(${item}_avg) as '${item}_avg',
+                </foreach>
+                year(data_time) as 'year',
+                quarter(dd.data_time) as 'quarter',
+                month(data_time) as 'month'
+            <include refid="tableName"/>
+            <include refid="join_site"/>
+            WHERE 1=1
+            AND year(data_time) = #{year,jdbcType=VARCHAR}
+            <include refid="where_site"/>
+            group by year(data_time),quarter(dd.data_time),month(data_time),m.id
+            ORDER BY m.id,year(data_time),quarter(dd.data_time),month(data_time)
+            <include refid="limit"/>
+        </if>
+
+
+        <if test="dateType!=null and dateType == 'season'">
+            select
+                <foreach collection="factorList" item="item">
+                    avg(${item}_avg) as '${item}_avg',
+                </foreach>
+              year(data_time) as 'year',
+              quarter(dd.data_time) as 'quarter'
+            <include refid="tableName"/>
+            <include refid="join_site"/>
+            WHERE 1=1
+            AND year(data_time)   = #{year,jdbcType=VARCHAR}
+            AND quarter(dd.data_time) = #{quarter,jdbcType=VARCHAR}
+            <include refid="where_site"/>
+            group by year(data_time),quarter(dd.data_time),m.id
+            ORDER BY m.id,year(data_time),quarter(dd.data_time)
+            <include refid="limit"/>
+        </if>
+
+    </select>
+
+    <select id="getStatDataRange" parameterType="com.jqmkj.WaterResponseSystem.entity.other.DeviceinfoDataSearchModel" resultType="com.jqmkj.WaterResponseSystem.entity.DeviceinfoDayData">
+        select
+            <foreach collection="factorList" item="item">
+                avg(${item}_avg) as '${item}_avg',
+            </foreach>
+          year(data_time)  as 'year',
+          month(data_time) as 'month'
+
+        <include refid="tableName"/>
+        <include refid="join_site"/>
+        where 1=1
+         AND dd.data_time <![CDATA[>=]]> #{beginDate,jdbcType=VARCHAR} AND dd.data_time <![CDATA[<=]]> #{endDate,jdbcType=VARCHAR}
+        <include refid="where_site"/>
+        group by year(data_time),month(data_time),m.id
+        ORDER BY m.id,year(data_time),month(data_time)
+        <include refid="limit"/>
+    </select>
+
+    <sql id="tableNameChange">
+        ,m.name as 'monitorsite_name'
+        <if test="dateType!=null and dateType == 'day'">
+          From  deviceinfo_day_data dd
+        </if>
+        <if test="dateType!=null and dateType == 'hour'">
+            From  deviceinfo_hour_data dd
+        </if>
+        <if test="dateType!=null and dateType == 'minute'">
+            From  deviceinfo_minute_data dd
+        </if>
+    </sql>
+
+    <select id="getQueryData" parameterType="com.jqmkj.WaterResponseSystem.entity.other.DeviceinfoDataSearchModel" resultType="com.jqmkj.WaterResponseSystem.entity.DeviceinfoDayData">
+        select
+            <foreach collection="factorList" item="item">
+                ${item}_avg as '${item}_avg',
+                ${item}_min as '${item}_min',
+                ${item}_max as '${item}_max',
+                ${item}_cou as '${item}_cou',
+            </foreach>
+            dd.monitorsite_id  ,
+            dd.data_time ,
+            dd.create_date
+        <include refid="tableNameChange"/>
+        <include refid="join_site"/>
+        where 1=1
+        AND dd.data_time <![CDATA[>=]]> #{beginDate,jdbcType=VARCHAR} AND dd.data_time <![CDATA[<=]]> #{endDate,jdbcType=VARCHAR}
+        <include refid="where_site"/>
+        <!--<include refid="limit"/>-->
+    </select>
+
+</mapper>
